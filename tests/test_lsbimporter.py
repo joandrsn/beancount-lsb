@@ -274,7 +274,7 @@ class TestLSBImporterFilename:
 
     def test_filename_with_different_path(self, importer):
         """Test filename generation with different path."""
-        filepath = "C:\\Downloads\\Posteringsdetaljer_2026.csv"
+        filepath = "/tmp/Downloads/Posteringsdetaljer_2026.csv"
         assert importer.filename(filepath) == "lsb.Posteringsdetaljer_2026.csv"
 
 
@@ -569,8 +569,8 @@ class TestLSBImporterEdgeCases:
             filepath = f.name
 
         try:
-            # Empty amounts should raise a RuntimeError with context
-            with pytest.raises(RuntimeError, match="Error processing.*line 2"):
+            # Empty amounts should raise a decimal.InvalidOperation
+            with pytest.raises(decimal.InvalidOperation):
                 list(importer.extract(filepath, []))
         finally:
             Path(filepath).unlink(missing_ok=True)

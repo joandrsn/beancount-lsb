@@ -139,8 +139,7 @@ class LSBImporter(csvbase.Importer):
                         return True
                     elif amount > 0 and to_account == self.account_number:
                         return True
-                    else:
-                        return False
+                    # Continue checking other rows if not a match
 
         except (UnicodeDecodeError, IOError, csv.Error):
             return False
