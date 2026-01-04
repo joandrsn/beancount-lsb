@@ -1,7 +1,6 @@
 """Importer for Lån & Spar Bank (LSB) CSV files."""
 
 from os import path
-from beangulp import mimetypes
 from beancount.core import data
 from beangulp.importers import csvbase
 
@@ -102,13 +101,9 @@ class LSBImporter(csvbase.Importer):
         import csv
         import decimal
 
-        mimetype, encoding = mimetypes.guess_type(filepath)
-        if mimetype != "application/vnd.ms-excel":
-            return False
-
         # Check if filename matches expected pattern
         filename = path.basename(filepath).lower()
-        if "posteringsdetaljer" not in filename:
+        if "posteringsdetaljer" not in filename or not filename.endswith(".csv"):
             return False
 
         # Determine the file's account by checking the first transaction
