@@ -3,7 +3,7 @@
 from os import path
 from beangulp import mimetypes
 from beancount.core import data
-from beancount_lsb.example import csvbase
+from beangulp.importers import csvbase
 
 
 class LSBImporter(csvbase.Importer):
